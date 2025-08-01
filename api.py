@@ -16,12 +16,13 @@ def yeumoney(cookies, id, t=False):
     'priority': 'u=0, i',
     'upgrade-insecure-requests': '1',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+    'Cookie': cookies
     }
     params = {
     'thongke_link': str(id),
     }
 
-    response = requests.get('https://yeumoney.com/quangly/', params=params, cookies=cookies, headers=headers)
+    response = requests.get('https://yeumoney.com/quangly/', params=params, headers=headers)
     if response.status_code == 200:
         html = response.text
         match = re.search(r'(\d+)\s*đ', html)
@@ -48,6 +49,8 @@ def yeumoney_check():
     if not id:
         return jsonify({'e': 'Vui lòng cung cấp id Yeumoney'}), 400
     to = json['t']
+    if not to:
+        return jsonify({'e': 'Vui lòng cung cấp lựa chọn time'}), 400
     check = yeumoney(cookies, id)
     if check == 'success-completed':
         return jsonify({'s': 'Xác thực thành công'}), 200
