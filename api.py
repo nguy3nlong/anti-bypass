@@ -55,8 +55,8 @@ def yeumoney_check():
     if check == 'success-completed':
         return jsonify({'s': 'Xác thực thành công'}), 200
     elif check == 'fail-auth':
-        return jsonify({'f': 'Vui lòng kiểm tra lại Cookies'}), 200
+        return jsonify({'f': 'Vui lòng kiểm tra lại Cookies'}), 400
     elif check == 'fail-completed':
-        return jsonify({'f': 'Người dùng chưa vượt link'}), 200
+        return jsonify({'f': 'Người dùng chưa vượt link'}), 400
     elif check == 'fail-data':
-        return jsonify({'f': 'id bạn cung cấp không hợp lệ hoặc Server lỗi'}), 200
+        return jsonify({'f': 'id bạn cung cấp không hợp lệ hoặc Server lỗi'}), 400
