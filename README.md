@@ -1,5 +1,11 @@
 # anti-bypass  
-mang về làm của riêng thì chỉ cần 1 dòng credit thôi  
+> [!NOTE]  
+> Mang về làm của riêng thì chỉ cần 1 dòng credit thôi.
+> Gợi ý: Nên dùng trong backend để xác thực khi người dùng gửi yêu cầu lấy key hoặc báo đã vượt link, nhằm tránh bị bypass bằng cách kiểm tra qua API dưới đây.
+
+> [!WARNING]  
+> Vui lòng không chia sẻ cookies của bạn với bất kì ai, họ có thể lấy tiền và thông tin của bạn.
+  
 Anti Bypass link rút gọn  
 **Main URL: `anti-bypass-shortlinks.vercel.app`**  
 1. **Kiểm tra tình trạng link Yeumoney**  
