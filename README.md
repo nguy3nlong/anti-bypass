@@ -1,8 +1,11 @@
 # anti-bypass
 
-anti bypass shortlinks  
+Anti Bypass link rút gọn
 **Main URL: anti-bypass-shortlinks.vercel.app**  
 **Kiểm tra tình trạng link Yeumoney**  
+```
+POST /yeumoney/check
+```
 Body:  
 `cookies` (string): Cookies tài khoản Yeumoney  
   
