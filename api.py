@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 def yeumoney(cookies, id, t='False'):
     if t == 'True':
-        time.sleep(15)
+        time.sleep(10)
     headers = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
     'accept-language': 'en-GB,en;q=0.7',
