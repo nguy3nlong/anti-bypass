@@ -31,7 +31,8 @@ Lỗi:
 - Chưa có json trong request gửi đi: `{'e': 'Vui lòng thêm json vào request'}`  
 - Cookies tài khoản sai: `{'e': 'Vui lòng thêm cookies tài khoản hợp lệ'}`
 - Chưa cung cấp t (thời gian) trong body: `{'e': 'Vui lòng cung cấp lựa chọn time'}`
-- ID sai hoặc server bị lỗi: `{'f': 'id bạn cung cấp không hợp lệ hoặc Server lỗi'}`  
+- ID sai hoặc server bị lỗi: `{'f': 'id bạn cung cấp không hợp lệ hoặc Server lỗi'}`
+  
 Thành công:  
 - Người dùng đã vượt link và không bypass: `{'s': 'Xác thực thành công'}`  
 - Người dùng vượt link nhưng đã bypass: `{'f': 'Người dùng chưa vượt link'}`  
