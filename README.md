@@ -73,7 +73,8 @@ Lỗi:
 - Chưa cung cấp t (thời gian) trong body: `{'e': 'Vui lòng cung cấp lựa chọn time'}`
 - ID sai hoặc server bị lỗi: `{'f': 'id bạn cung cấp không hợp lệ hoặc Server lỗi'}`
 - JSON của link trả về không hợp lệ hoặc ID sai: `{'f': 'Lỗi server, json không hợp lệ'}`
-- Không có dữ liệu của ID mà bạn đã cung cấp: `{'f': 'Không có dữ liệu trong link, vui lòng kiểm tra lại ID'}`  
+- Không có dữ liệu của ID mà bạn đã cung cấp: `{'f': 'Không có dữ liệu trong link, vui lòng kiểm tra lại ID'}`
+- Không tìm được Link ID của ID bạn nhập khi gửi request hoặc sai Cookies: `{'f': 'Lỗi server, không tìm được ID của link'}`  
   
 Thành công:  
 - Người dùng đã vượt link và không bypass: `{'s': 'Xác thực thành công'}`  
