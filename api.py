@@ -1,5 +1,6 @@
 from flask import Flask, request, send_from_directory, jsonify
 import os
+from urllib.parse import unquote, quote
 import requests
 import random
 import string
@@ -7,6 +8,31 @@ import re
 import json
 import time
 app = Flask(__name__)
+
+def bbmkts_id(html, target):
+    target_encoded = quote(unquote(target), safe='')
+    target_variants = {
+        target.strip(),
+        unquote(target.strip()),
+        f"https://bbmkts.com/go/{target_encoded.strip()}"
+    }
+
+    blocks = re.findall(r'<div class="link__user-list">(.*?)</div>\s*</div>', html, re.DOTALL)
+
+    for block in blocks:
+        chart_match = re.search(r'<a href="https://bbmkts\.com/site/link/chart/(\d+)"', block)
+        go_match = re.search(r'value="(https://bbmkts\.com/go/[^"]+)"', block)
+
+        if chart_match and go_match:
+            chart_id = chart_match.group(1)
+            go_link_raw = go_match.group(1)
+            go_link_decoded = unquote(go_link_raw)
+
+            if go_link_raw.strip() in target_variants or go_link_decoded.strip() in target_variants:
+                return chart_id
+
+    return None
+
 
 def yeumoney(cookies, id, t='False'):
     if t == 'True':
@@ -37,10 +63,7 @@ def yeumoney(cookies, id, t='False'):
     else:
         return('fail-auth')
 
-def bbmkts(cookies, id, t='False'):
-    if t == 'True':
-        time.sleep(10)
-
+def bbmkts(cookies, bid, t='False'):
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
         'Accept-Language': 'en-GB,en;q=0.8',
@@ -50,7 +73,15 @@ def bbmkts(cookies, id, t='False'):
         'Cookie': cookies
     }
 
-    response = requests.get(f'https://bbmkts.com/site/link/chart/{id}', headers=headers)
+    r1 = requests.get('https://bbmkts.com/site/all-link', headers=headers)
+    html1 = r1.text
+    target = f"https://bbmkts.com/go/{bid}"
+    result = str(bbmkts_id(html1, target))
+    if result == 'None':
+        return 'fail-html'
+    if t == 'True':
+        time.sleep(10)
+    response = requests.get(f'https://bbmkts.com/site/link/chart/{result}', headers=headers)
 
     if response.status_code == 200:
         html = response.text
@@ -124,5 +155,7 @@ def bbmkts_check():
         return jsonify({'f': 'Lỗi server, json không hợp lệ'}), 400
     elif check == 'empty-data':
         return jsonify({'f': 'Không có dữ liệu trong link, vui lòng kiểm tra lại ID'}), 400
+    elif check == 'fail-html':
+        return jsonify({'f': 'Lỗi server, không tìm được ID của link'}), 400
     else:
         return jsonify({'f': 'Lỗi không xác định'}), 400
